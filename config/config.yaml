@@ -119,3 +119,12 @@ platforms:
     name: "抖音"
   - id: "zhihu"
     name: "知乎"
+  # 外部数据源（国际新闻）
+  - id: "youtube-trending"
+    name: "YouTube 热门视频"
+  - id: "cnn-news"
+    name: "CNN 新闻"
+  - id: "hackernews"
+    name: "Hacker News"
+  - id: "newsapi-cnn-bbc"
+    name: "新闻聚合(CNN/BBC)"

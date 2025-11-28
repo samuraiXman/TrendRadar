@@ -473,6 +473,13 @@ class DataFetcher:
 
     def __init__(self, proxy_url: Optional[str] = None):
         self.proxy_url = proxy_url
+        # 初始化外部数据源适配器
+        try:
+            from sources.adapter import get_adapter
+            self.external_adapter = get_adapter(proxy_url)
+        except Exception as e:
+            self.external_adapter = None
+            print(f"⚠️ 外部数据源初始化: {e}")
 
     def fetch_data(
         self,
@@ -487,6 +494,10 @@ class DataFetcher:
         else:
             id_value = id_info
             alias = id_value
+
+        # 检查是否为外部数据源
+        if self.external_adapter and self.external_adapter.is_external_source(id_value):
+            return self.external_adapter.fetch_external_data(id_value)
 
         url = f"https://newsnow.busiyi.world/api/s?id={id_value}&latest"
 
